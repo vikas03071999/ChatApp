@@ -1,0 +1,386 @@
+// For responsive design we write in the following way in SASS
+
+@mixin mobile{
+    @media screen and (max-width: 480px) {
+        @content;
+    }
+}
+
+@mixin tablet{
+    @media screen and (max-width: 780px){
+        @content;
+    }
+}
+
+@mixin laptop{
+    @media screen and (max-width: 1200px){
+        @content;
+    }
+}
+
+
+
+.formContainer {
+    background-color: #d1e0e0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .formWrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+        background-color: #fff;
+        border-radius: 10px;
+        padding: 15px;
+
+        .logo {
+            font-weight: bold;
+            color: #1f67ed;
+            font-size: 20px;
+        }
+
+        .regTitle {
+            margin-bottom: 10px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 299px;
+
+            label {
+                display: flex;
+                align-items: center;
+
+                img {
+                    height: 40px;
+                    width: 40px;
+                }
+
+                .avaDesc {
+                    font-size: 12px;
+                    margin-left: 7px;
+                }
+            }
+
+            input {
+                border: none;
+                border-bottom: 1px solid rgb(170, 174, 168);
+                padding: 5px;
+
+                &:focus {
+                    outline: none;
+                }
+            }
+
+            button {
+                padding: 6px;
+                font-size: 13px;
+                background-color: #d6ecd6;
+                cursor: pointer;
+                border: none;
+                border-radius: 10px;
+                font-weight: 500;
+            }
+        }
+
+        .formBottom {
+            font-size: 13px;
+        }
+    }
+}
+
+// CSS FOR HOME PAGE
+.home {
+    background-color: #d1e0e0;
+    display: flex;
+    align-items: center;
+    height: 100vh;
+    justify-content: center;
+
+    .container {
+        border: 1px solid black;
+        width: 65%;
+        height: 80%;
+        border-radius: 10px;
+        display: flex;
+        overflow: hidden;
+
+        @include tablet{
+            width: 90%;
+        }
+        .sidebar {
+            flex: 1;
+            border-right: 1px solid black;
+            background-color: #526e52;
+
+            .navbar {
+                display: flex;
+                padding: 15px;
+                font-size: 16px;
+                background-color: #395039;
+                justify-content: space-between;
+                color: #fff;
+
+                .logo {
+                    // flex: 1;
+                    font-weight: 500;
+
+                    @include tablet{
+                        display: none;
+                    }
+
+
+                }
+
+                .rightnavarea {
+                    display: flex;
+                    gap: 10px;
+                }
+
+                img {
+                    background-color: aqua;
+                    width: 24px;
+                    height: 24px;
+                    border-radius: 50%;
+                    object-fit: cover;
+                }
+
+                button {
+                    background-color: #526e52;
+                    color: #fff;
+                    border: none;
+                    cursor: pointer;
+                    border-radius: 5px;
+                }
+            }
+            .searchAndResultContainer{
+                        border-bottom: 1px solid rgb(155, 153, 153);
+                    .search {
+                        display: flex;
+                        align-items: center;
+                        padding: 5px;
+                        
+
+                        input {
+                            background-color: transparent;
+                            border: none;
+                            outline: none;
+                            color: rgb(222, 219, 219);
+                            width: 100%;
+
+                            &::placeholder {
+                                color: rgb(222, 219, 219);
+                            }
+                        }
+
+                    }
+            }
+
+            .user {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                padding: 10px;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: #395039;
+                }
+
+                img {
+                    width: 50px;
+                    height: 50px;
+                    border-radius: 50%;
+                    object-fit: cover;
+                }
+
+                .rightsec {
+                    display: flex;
+                    flex-direction: column;
+
+                    .name {
+                        font-weight: bold;
+                        color: white;
+                    }
+
+                    .msg {
+                        font-size: 12px;
+                        color: #fff;
+                    }
+                }
+            }
+
+            .allUsers {
+
+
+                .user {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    padding: 10px;
+                    cursor: pointer;
+
+                    &:hover {
+                        background-color: #395039;
+                    }
+
+                    img {
+                        width: 50px;
+                        height: 50px;
+                        border-radius: 50%;
+                        object-fit: cover;
+                    }
+
+                    .rightsec {
+                        display: flex;
+                        flex-direction: column;
+
+                        .name {
+                            font-weight: bold;
+                            color: white;
+                        }
+
+                        .msg {
+                            font-size: 12px;
+                            color: #fff;
+                        }
+                    }
+                }
+
+            }
+        }
+
+        .chat {
+            flex: 2;
+
+            .chatTopbar {
+                height: 34px;
+                background-color: #526e52;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 10px;
+
+                span {
+                    color: white;
+
+                }
+
+                .chatIcons {
+                    display: flex;
+                    gap: 5px;
+
+                    img {
+                        height: 24px;
+                        cursor: pointer;
+                    }
+                }
+            }
+
+            .messages {
+                height: calc(100% - 108px);
+                overflow-y: auto;
+
+                .message {
+                    display: flex;
+                    gap: 3px;
+                    padding: 10px;
+                    align-items: center;
+
+                    .messageInfo {
+                        display: flex;
+                        flex-direction: column;
+
+                        span {
+                            font-size: 12px;
+                            color: gray;
+                        }
+
+                        img {
+                            height: 40px;
+                            width: 40px;
+                            border-radius: 50%;
+                            object-fit: cover;
+                        }
+                    }
+
+                    .messageContent {
+                        display: flex;
+                        flex-direction: column;
+                        max-width: 80%;
+
+
+                        p {
+                            font-size: 14px;
+                            background-color: white;
+                            padding: 7px 9px;
+                            border-radius: 0px 10px 10px 10px;
+                            max-width: max-content;
+                        }
+
+                        img {
+                            width: 50%;
+                        }
+                    }
+
+                    &.own {
+                        flex-direction: row-reverse;
+
+                        .messageContent {
+                            align-items: flex-end;
+
+                            p {
+                                border-radius: 10px 0px 10px 10px;
+                                background-color: #526e52;
+                                color: white;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .writeMessage {
+                background-color: white;
+                // padding: 10px;
+                height: 54px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                input {
+                    border: none;
+                    outline: none;
+                    width: 100%;
+                    padding: 10px;
+                }
+
+                .send {
+                    display: flex;
+                    align-items: center;
+                    gap: 7px;
+                    margin-right: 10px;
+
+                    img {
+                        height: 24px;
+                        cursor: pointer;
+                    }
+
+                    button {
+                        cursor: pointer;
+                        border: none;
+                        padding: 6px 10px;
+                        border-radius: 5px;
+                        background-color: #d6ecd6;
+                        font-size: 15px;
+                        font-weight: 500;
+                    }
+                }
+            }
+        }
+    }
+}
