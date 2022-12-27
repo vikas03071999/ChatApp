@@ -6,6 +6,7 @@ import { useContext } from 'react'
 import { ChatContext } from '../context/ChatContext'
 import { db } from '../firebase'
 import Message from './Message'
+import WriteMessage from './WriteMessage'
 
 const Messages = () => {
   const [messages,setMessages] = useState([]);
@@ -20,15 +21,21 @@ const Messages = () => {
     }
   },[chatToUser.chatId]);
   console.log("INSIDE MESSAES COMPONENT");
-  console.log(messages);
+  console.log(chatToUser);
 
   return (
     <div className='messages'>
       {
-        messages.map(msg=>(
+        chatToUser.chatId === "null" && <span className='noUserSelectedToChatView'>Click on the user to see or start a conversation</span>
+      }
+      {
+        chatToUser.chatId !== "null" && messages.map(msg=>(
           <Message attachedFile={msg.attachedFile} message={msg.message} senderId={msg.senderId} date={msg.date} key={msg.id} />
         ))
       }
+      {/* {
+        chatToUser.chatId !== "null" && <WriteMessage />
+      } */}
     </div>
   )
 }

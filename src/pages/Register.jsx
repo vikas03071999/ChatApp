@@ -5,13 +5,16 @@ import { auth, storage, db } from "../firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { doc, setDoc} from "firebase/firestore";
 import { useNavigate, Link } from 'react-router-dom';
+import { useState } from 'react';
 
 export default function Register() {
 
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
+  const [btnDisable,setBtnDisable] = useState(false);
 
 
   const handleSubmit = async (e) => {
+    setBtnDisable(!btnDisable);
     e.preventDefault();
     const displayName = e.target[0].value;
     const userEmail = e.target[1].value;
@@ -31,22 +34,20 @@ export default function Register() {
       },
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then(async(downloadURL) => {
-          console.log("Error after photo has been sucessfully uploaded")
           await updateProfile(addedUser.user, {
             displayName,
             photoURL: downloadURL
           })
-          console.log("Updated created user");
           await setDoc(doc(db, "users",addedUser.user.uid),{
             uid : addedUser.user.uid,
             displayName,
             userEmail,
             photoURL: downloadURL
           })
-          console.log("Added created user in users database also")
 
           await setDoc(doc(db,"usersChat",addedUser.user.uid),{});
 
+          setBtnDisable(!btnDisable);
           navigate("/login");
         });
       }
@@ -62,11 +63,11 @@ export default function Register() {
           <input type="email" placeholder="Enter email address" />
           <input type="password" placeholder="Enter password" />
           <input type="file" id='img' style={{ display: "none" }} />
-          <label htmlFor='img'>
+          <label htmlFor='img' style={{cursor:"pointer"}}>
             <img src={Add} alt="avatar" />
             <span className='avaDesc'>Add a display picture</span>
           </label>
-          <button>Sign up</button>
+          <button disabled={btnDisable} style={{cursor:btnDisable?"not-allowed":"allowed"}}>Sign up</button>
         </form>
         <span className='formBottom'>Already registered? <Link to="/login" style={{textDecoration:"none"}}>Login</Link></span>
       </div>

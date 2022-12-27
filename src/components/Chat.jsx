@@ -25,7 +25,10 @@ const Chat = () => {
         </div>
       </div>
       <Messages />
-      <WriteMessage />
+      {
+        chatToUser.chatId !== "null" && <WriteMessage />
+      }
+      
     </div>
   )
 }

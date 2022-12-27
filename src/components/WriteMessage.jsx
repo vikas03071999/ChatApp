@@ -12,12 +12,15 @@ import { db, storage } from '../firebase'
 
 const WriteMessage = () => {
   const [text, setText] = useState("");
+  const [btnDisable,setBtnDisable] = useState(false);
   const [attachment, setAttachment] = useState(null);
   const { chatToUser } = useContext(ChatContext);
   const { loggedInUser } = useContext(AuthContext);
 
    
   const handleSend = async() => {
+      setBtnDisable(true);
+      setText("");
       if(attachment){
         const storageRef = ref(storage,uuid());
 
@@ -38,6 +41,7 @@ const WriteMessage = () => {
                   attachedFile: downloadURL
                 })
               })
+              
             })
           }
         )
@@ -66,7 +70,8 @@ const WriteMessage = () => {
         [chatToUser.chatId+".date"]: serverTimestamp()
       })
 
-      setText("");
+      
+      setBtnDisable(false);
       setAttachment(null);
 
   }
@@ -79,7 +84,7 @@ const WriteMessage = () => {
         <label htmlFor="file">
             <img src={ImageAttachSynbol} alt="" />
         </label>
-        <button onClick={handleSend}>Send</button>
+        <button onClick={handleSend} disabled={btnDisable} style={{cursor:`${btnDisable}?"not-allowed":"allowed"`}}>Send</button>
       </div>
     </div>
   )
