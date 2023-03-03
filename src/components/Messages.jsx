@@ -20,8 +20,7 @@ const Messages = () => {
       unsub();
     }
   },[chatToUser.chatId]);
-  console.log("INSIDE MESSAES COMPONENT");
-  console.log(chatToUser);
+  console.log(messages);
 
   return (
     <div className='messages'>

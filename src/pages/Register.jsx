@@ -1,5 +1,6 @@
 import React from 'react'
 import Add from "../images/addAvatar.png";
+import NoImageAvatar from "../images/NoImageAvatar.png";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth, storage, db } from "../firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
@@ -19,12 +20,15 @@ export default function Register() {
     const displayName = e.target[0].value;
     const userEmail = e.target[1].value;
     const userPassword = e.target[2].value;
-    const userFile = e.target[3].files[0];  // This will only take on image/file
-
+    var userFile = e.target[3].files[0];  // This will only take on image/file
+    // if(userFile === undefined){
+    //   userFile = NoImageAvatar;
+    // }
     // Now that we have got the data we need to create a user in the firebase sever
 
     // const auth = getAuth(app);
     const addedUser = await createUserWithEmailAndPassword(auth, userEmail, userPassword);
+    console.log(addedUser);
     const storageRef = ref(storage, displayName);
 
     const uploadTask = uploadBytesResumable(storageRef, userFile);
@@ -34,10 +38,12 @@ export default function Register() {
       },
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then(async(downloadURL) => {
+          console.log("Before upating profile");
           await updateProfile(addedUser.user, {
             displayName,
             photoURL: downloadURL
           })
+          console.log("After upating profile");
           await setDoc(doc(db, "users",addedUser.user.uid),{
             uid : addedUser.user.uid,
             displayName,

@@ -6,6 +6,7 @@ import { AuthContext } from '../context/AuthContext';
 const Navbar = () => {
   
   const {loggedInUser} = useContext(AuthContext);
+  console.log(loggedInUser)
   return (
     <div className='navbar'>
       <span className="logo">Chat app</span>

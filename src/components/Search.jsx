@@ -78,7 +78,7 @@ const Search = () => {
   return (
     <div className='searchAndResultContainer'>
       <div className='search'>
-        <input type="text" placeholder='Find a user' onKeyDown={handleUserSearch}
+        <input type="text" placeholder='Type username and enter to search' onKeyDown={handleUserSearch}
           onChange={(e) => setSearchUser(e.target.value)} value={searchUser} />
       </div>
       {newfriend && (<div className="user" onClick={handleConnection}>
